@@ -5,6 +5,7 @@
   "description": "Codex-assisted educational content generation system for IMFORMATION_GENERATER.",
   "license": "UNLICENSED",
   "scripts": {
+    "build": "node scripts/build-out.js",
     "generate:article": "node scripts/generate-article.js --write",
     "test:generate": "node scripts/generate-article.test.js",
     "export:note": "node scripts/export-note.js",
