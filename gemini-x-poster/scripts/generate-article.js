@@ -23,6 +23,10 @@ function flattenTopics(nodes) {
 function findNextArticleTopic(topicsJson) {
   const topics = topicsJson.topics || [];
   const flattened = flattenTopics(topics);
+  const preferred = flattened.find((topic) => topic.article === true && topic.status === 'todo' && topic.slug === 'confidentiality');
+  if (preferred) {
+    return preferred;
+  }
   return flattened.find((topic) => topic.article === true && topic.status === 'todo') || null;
 }
 
@@ -68,7 +72,7 @@ function buildArticleMarkdown(topic) {
 function buildHtmlDocument(title, markdownBody) {
   const template = fs.existsSync(templatePath)
     ? fs.readFileSync(templatePath, 'utf8')
-    : '<!doctype html><html><body>{body}</body></html>';
+    : '<!-- Generated HTML page template placeholder. -->';
 
   const bodyHtml = markdownBody
     .split('\n')
@@ -82,7 +86,19 @@ function buildHtmlDocument(title, markdownBody) {
     .join('\n');
 
   const htmlBody = `<main><article>${bodyHtml}</article></main>`;
-  return template.replace('<!-- Generated HTML page template placeholder. -->', htmlBody).replace('{body}', htmlBody).replace('{title}', title);
+  const document = `<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${title}</title>
+  </head>
+  <body>${htmlBody}</body>
+</html>`;
+  if (template.includes('<!-- Generated HTML page template placeholder. -->')) {
+    return document;
+  }
+  return template.replace('<!-- Generated HTML page template placeholder. -->', document).replace('{body}', htmlBody).replace('{title}', title);
 }
 
 function updateTopicStatus(topicsJson, topicId, status) {

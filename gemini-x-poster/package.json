@@ -9,6 +9,7 @@
     "test:generate": "node scripts/generate-article.test.js",
     "export:note": "node scripts/export-note.js",
     "test:export": "node scripts/export-note.test.js",
-    "publish:git": "node scripts/publish.js"
+    "publish:git": "node scripts/publish.js",
+    "generate:next": "node scripts/generate-article.js --write && node scripts/export-note.js && node scripts/publish.js"
   }
 }

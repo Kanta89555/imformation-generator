@@ -20,7 +20,7 @@
           "slug": "fundamentals",
           "level": 1,
           "article": true,
-          "status": "todo",
+          "status": "writing",
           "children": [
             {
               "id": "information-asset",
@@ -28,7 +28,7 @@
               "slug": "information-asset",
               "level": 2,
               "article": true,
-              "status": "todo",
+              "status": "writing",
               "children": []
             },
             {
